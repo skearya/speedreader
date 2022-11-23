@@ -51,6 +51,7 @@ h1 {
   max-width: 1280px;
   margin: 0 auto;
   padding: 2rem;
+  width: 100%;
   text-align: center;
 }
 
@@ -90,7 +91,9 @@ input {
     color: #747bff;
   }
 
-  button, textarea, input {
+  button,
+  textarea,
+  input {
     background-color: #e9e9e9;
   }
 

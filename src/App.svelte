@@ -8,7 +8,9 @@
   }
 
   let paused = false;
+  let textLast = "";
   let text = "speedreader";
+  let textAhead = "";
   let input = "";
   let running = false;
   let wpm = 400;
@@ -21,7 +23,8 @@
 
   async function render() {
     if (input == "") {
-      input = "insert text!";
+      input =
+        "Svelte is a radical new approach to building user interfaces. Whereas traditional frameworks like React and Vue do the bulk of their work in the browser, Svelte shifts that work into a compile step that happens when you build your app.";
       return;
     }
 
@@ -33,7 +36,9 @@
       while (paused) {
         await delay(100);
       }
+      textLast = myArray[i - 1];
       text = myArray[i];
+      textAhead = myArray[i + 1];
       await delay(60000 / wpm);
     }
 
@@ -44,7 +49,13 @@
 <svelte:window on:keydown={handleKeydown} />
 
 <main>
-  <h1>{text}</h1>
+  <h1 id="mainText">{text}</h1>
+  {#if running}
+    <div transition:fade class="textBox">
+      <p>{textLast}</p>
+      <p>{textAhead}</p>
+    </div>
+  {/if}
 
   {#if !running}
     <button on:click={render}>Start</button>
@@ -65,7 +76,7 @@
     </div>
   {/if}
 
-  <div>
+  <div class="wpmBox">
     <label for="wpm">words per minute</label>
     <input
       id="wpm"
@@ -108,6 +119,22 @@
 
   #wpm {
     width: 3rem;
-    margin-left: 0.4rem;
+    text-align: center;
+  }
+
+  .wpmBox {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: baseline;
+    gap: 1rem;
+  }
+
+  .textBox {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: baseline;
+    color: gray;
   }
 </style>
