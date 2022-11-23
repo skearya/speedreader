@@ -19,6 +19,12 @@
     if (event.code == "Space") {
       paused = !paused;
     }
+    if (event.code == "ArrowLeft" || event.code == "KeyA") {
+      paused = !paused;
+    }
+    if (event.code == "ArrowRight" || event.code == "KeyD") {
+      paused = !paused;
+    }
   }
 
   async function render() {
@@ -64,11 +70,11 @@
   {/if}
 
   {#if !running}
-    <button on:click={render}>Start</button>
+    <button id="controls" on:click={render}>Start</button>
   {:else if !paused}
-    <button on:click={() => (paused = !paused)}>Pause</button>
+    <button id="controls" on:click={() => (paused = !paused)}>Pause</button>
   {:else}
-    <button on:click={() => (paused = !paused)}>Resume</button>
+    <button id="controls" on:click={() => (paused = !paused)}>Resume</button>
   {/if}
 
   {#if !running}
@@ -83,15 +89,19 @@
   {/if}
 
   <div class="wpmBox">
-    <label for="wpm">words per minute</label>
-    <input
-      id="wpm"
-      type="number"
-      bind:value={wpm}
-      min="0"
-      max="1000"
-      step="100"
-    />
+    <p>wpm</p>
+    <div class="wpmBox2">
+      <input
+        id="wpm"
+        type="number"
+        bind:value={wpm}
+        min="0"
+        max="1000"
+        step="100"
+      />
+      <button style="color: #E36D6D;" on:click={() => (wpm = wpm - 100)} class="changer">-</button>
+      <button style="color: #61D67E;" on:click={() => (wpm = wpm + 100)} class="changer">+</button>
+    </div>
   </div>
 </main>
 
@@ -108,7 +118,7 @@
   #wpm {
     border-radius: 8px;
     border: 1px solid transparent;
-    margin-bottom: 1.3rem;
+    margin-bottom: 0.9rem;
     padding: 0.6em;
     cursor: pointer;
     transition: border-color 0.25s;
@@ -124,8 +134,15 @@
   }
 
   #wpm {
-    width: 3rem;
+    margin-bottom: 0;
+    width: 2rem;
+    height: 1rem;
     text-align: center;
+    font-size: medium;
+  }
+
+  #controls {
+    font-family: inherit;
   }
 
   .wpmBox {
@@ -136,11 +153,23 @@
     gap: 1rem;
   }
 
+  .wpmBox2 {
+    display: flex;
+    background-color: #1a1a1a;
+    align-items: center;
+    border-radius: 8px;
+  }
+
   .textBox {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: baseline;
     color: gray;
+  }
+
+  .changer {
+    margin: 0;
+    padding: 0rem 1rem;
   }
 </style>
