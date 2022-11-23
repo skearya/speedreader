@@ -1,4 +1,6 @@
 <script>
+  import { fade } from "svelte/transition";
+
   function delay(milliseconds) {
     return new Promise((resolve) => {
       setTimeout(resolve, milliseconds);
@@ -54,12 +56,17 @@
 
   {#if !running}
     <div>
-      <textarea id="text" placeholder="insert text here" bind:value={input} />
+      <textarea
+        id="text"
+        placeholder="insert text here"
+        transition:fade
+        bind:value={input}
+      />
     </div>
   {/if}
 
   <div>
-    <label for="wpm">words per minute </label>
+    <label for="wpm">words per minute</label>
     <input
       id="wpm"
       type="number"
@@ -88,7 +95,6 @@
     border: 1px solid transparent;
     margin-bottom: 1.3rem;
     padding: 0.6em;
-    background-color: #1a1a1a;
     cursor: pointer;
     transition: border-color 0.25s;
   }
