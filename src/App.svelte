@@ -37,8 +37,14 @@
         await delay(100);
       }
       textLast = myArray[i - 1];
+      if (myArray[i - 1] == null) {
+        textLast = "";
+      }
       text = myArray[i];
       textAhead = myArray[i + 1];
+      if (myArray[i + 1] == null) {
+        textAhead = "";
+      }
       await delay(60000 / wpm);
     }
 
