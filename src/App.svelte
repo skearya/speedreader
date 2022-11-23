@@ -86,8 +86,6 @@
 
   ::placeholder {
     text-align: center;
-    height: 30px;
-    line-height: 30px;
   }
   #text,
   #wpm {
@@ -101,6 +99,11 @@
   #text:hover,
   #wpm:hover {
     border-color: #646cff;
+  }
+
+  #text {
+    height: 30px;
+    line-height: 30px;
   }
 
   #wpm {
