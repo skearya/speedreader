@@ -14,16 +14,22 @@
   let input = "";
   let running = false;
   let wpm = 400;
+  let i;
 
   function handleKeydown(event) {
+    if (event.code == "Enter") {
+      if (!running) {
+        render();
+      }
+    }
     if (event.code == "Space") {
       paused = !paused;
     }
     if (event.code == "ArrowLeft" || event.code == "KeyA") {
-      paused = !paused;
+      wpm = wpm - 100;
     }
     if (event.code == "ArrowRight" || event.code == "KeyD") {
-      paused = !paused;
+      wpm = wpm + 100;
     }
   }
 
@@ -38,7 +44,7 @@
     running = true;
     const myArray = input.split(" ");
 
-    for (let i = 0; i < myArray.length; i++) {
+    for (i = 0; i < myArray.length; i++) {
       while (paused) {
         await delay(100);
       }
@@ -61,6 +67,12 @@
 <svelte:window on:keydown={handleKeydown} />
 
 <main>
+  {#if !running}
+    <div transition:fade class="topcorner">
+      <button id="settings">settings</button>
+    </div>
+  {/if}
+
   <h1 id="mainText">{text}</h1>
   {#if running}
     <div transition:fade class="textBox">
@@ -89,8 +101,8 @@
   {/if}
 
   <div class="wpmBox">
-    <p>wpm</p>
     <div class="wpmBox2">
+      <p id="wpmTag">wpm</p>
       <input
         id="wpm"
         type="number"
@@ -99,8 +111,16 @@
         max="1000"
         step="100"
       />
-      <button style="color: #E36D6D;" on:click={() => (wpm = wpm - 100)} class="changer">-</button>
-      <button style="color: #61D67E;" on:click={() => (wpm = wpm + 100)} class="changer">+</button>
+      <button
+        style="color: #E36D6D;"
+        on:click={() => (wpm = wpm - 100)}
+        class="changer">-</button
+      >
+      <button
+        style="color: #61D67E;"
+        on:click={() => (wpm = wpm + 100)}
+        class="changer">+</button
+      >
     </div>
   </div>
 </main>
@@ -118,13 +138,12 @@
   #wpm {
     border-radius: 8px;
     border: 1px solid transparent;
-    margin-bottom: 0.9rem;
+    margin-bottom: 1.4rem;
     padding: 0.6em;
     cursor: pointer;
     transition: border-color 0.25s;
   }
-  #text:hover,
-  #wpm:hover {
+  #text:hover {
     border-color: #646cff;
   }
 
@@ -139,10 +158,16 @@
     height: 1rem;
     text-align: center;
     font-size: medium;
+    font-family: inherit;
   }
 
   #controls {
     font-family: inherit;
+  }
+
+  #wpmTag {
+    margin: 0;
+    padding-left: 1rem;
   }
 
   .wpmBox {
@@ -155,6 +180,7 @@
 
   .wpmBox2 {
     display: flex;
+    /* height: 3rem; */
     background-color: #1a1a1a;
     align-items: center;
     border-radius: 8px;
@@ -170,6 +196,12 @@
 
   .changer {
     margin: 0;
-    padding: 0rem 1rem;
+    padding: 0.4rem 1rem;
+  }
+
+  .topcorner {
+    position: absolute;
+    top: 10px;
+    right: 15px;
   }
 </style>
