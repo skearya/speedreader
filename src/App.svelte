@@ -69,7 +69,7 @@
 <main>
   {#if !running}
     <div transition:fade class="topcorner">
-      <button id="settings">settings</button>
+      <button on:click={() => alert("come back later..")} id="settings">settings</button>
     </div>
   {/if}
 
