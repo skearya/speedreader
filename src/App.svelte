@@ -26,10 +26,10 @@
       paused = !paused;
     }
     if (event.code == "ArrowLeft" || event.code == "KeyA") {
-      wpm.update((n) => n - 100);
+      wpm.update(n => n - 100);
     }
     if (event.code == "ArrowRight" || event.code == "KeyD") {
-      wpm.update((n) => n + 100);
+      wpm.update(n => n + 100);
     }
   }
 
@@ -113,12 +113,12 @@
       />
       <button
         style="color: #E36D6D;"
-        on:click={() => wpm.update((n) => n - 100)}
+        on:click={() => wpm.update(n => n - 100)}
         class="changer">-</button
       >
       <button
         style="color: #61D67E;"
-        on:click={() => wpm.update((n) => n + 100)}
+        on:click={() => wpm.update(n => n + 100)}
         class="changer">+</button
       >
     </div>
