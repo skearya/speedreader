@@ -26,10 +26,10 @@
       paused = !paused;
     }
     if (event.code == "ArrowLeft" || event.code == "KeyA") {
-      wpm.update(n => n - 100);
+      $wpm = parseInt($wpm) - 100;
     }
     if (event.code == "ArrowRight" || event.code == "KeyD") {
-      wpm.update(n => n + 100);
+      $wpm = parseInt($wpm) + 100;
     }
   }
 
@@ -69,7 +69,9 @@
 <main>
   {#if !running}
     <div transition:fade class="topcorner">
-      <button on:click={() => alert("come back later..")} id="settings">settings</button>
+      <button on:click={() => alert("come back later..")} id="settings"
+        >settings</button
+      >
     </div>
   {/if}
 
@@ -113,12 +115,12 @@
       />
       <button
         style="color: #E36D6D;"
-        on:click={() => wpm.update(n => n - 100)}
+        on:click={() => $wpm = parseInt($wpm) - 100}
         class="changer">-</button
       >
       <button
         style="color: #61D67E;"
-        on:click={() => wpm.update(n => n + 100)}
+        on:click={() => $wpm = parseInt($wpm) + 100}
         class="changer">+</button
       >
     </div>
