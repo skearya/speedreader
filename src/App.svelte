@@ -1,5 +1,6 @@
 <script>
   import { fade } from "svelte/transition";
+  import { wpm } from "./store.js";
 
   function delay(milliseconds) {
     return new Promise((resolve) => {
@@ -13,7 +14,6 @@
   let textAhead = "";
   let input = "";
   let running = false;
-  let wpm = 400;
   let i;
 
   function handleKeydown(event) {
@@ -26,10 +26,10 @@
       paused = !paused;
     }
     if (event.code == "ArrowLeft" || event.code == "KeyA") {
-      wpm = wpm - 100;
+      wpm.update((n) => n - 100);
     }
     if (event.code == "ArrowRight" || event.code == "KeyD") {
-      wpm = wpm + 100;
+      wpm.update((n) => n + 100);
     }
   }
 
@@ -57,7 +57,7 @@
       if (textAhead == null) {
         textAhead = "";
       }
-      await delay(60000 / wpm);
+      await delay(60000 / $wpm);
     }
 
     running = false;
@@ -106,19 +106,19 @@
       <input
         id="wpm"
         type="number"
-        bind:value={wpm}
+        bind:value={$wpm}
         min="0"
         max="1000"
         step="100"
       />
       <button
         style="color: #E36D6D;"
-        on:click={() => (wpm = wpm - 100)}
+        on:click={() => wpm.update((n) => n - 100)}
         class="changer">-</button
       >
       <button
         style="color: #61D67E;"
-        on:click={() => (wpm = wpm + 100)}
+        on:click={() => wpm.update((n) => n + 100)}
         class="changer">+</button
       >
     </div>
@@ -180,8 +180,6 @@
 
   .wpmBox2 {
     display: flex;
-    /* height: 3rem; */
-    background-color: #1a1a1a;
     align-items: center;
     border-radius: 8px;
   }
