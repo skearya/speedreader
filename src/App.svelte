@@ -151,7 +151,7 @@
   }
 
   #text {
-    height: 20rem;
+    height: 15rem;
     width: 80%;
     line-height: 30px;
   }
