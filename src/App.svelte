@@ -143,6 +143,7 @@
     margin-bottom: 1.4rem;
     padding: 0.6em;
     cursor: pointer;
+    box-sizing: border-box;
     transition: border-color 0.25s;
   }
   #text:hover {
@@ -150,13 +151,14 @@
   }
 
   #text {
-    height: 30px;
+    height: 20rem;
+    width: 80%;
     line-height: 30px;
   }
 
   #wpm {
     margin-bottom: 0;
-    width: 2rem;
+    width: max-content;
     height: 1rem;
     text-align: center;
     font-size: medium;
