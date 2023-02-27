@@ -158,7 +158,7 @@
 
   #wpm {
     margin-bottom: 0;
-    width: max-content;
+    width: 100px;
     height: 1rem;
     text-align: center;
     font-size: medium;
